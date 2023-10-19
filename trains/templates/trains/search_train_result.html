@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>search details</title>
+    <link rel="stylesheet" href="{% static 'trains/css/page.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <!--                        navigation bar                             -->
+
+
+    <div class="header">
+        <div class="nav" class="topnav">
+            <div class="topnav">
+                <a class="active" href="/search-train/">Home</a>
+                <a class="active" href="/login/">Login / Register</a>
+                <label for=""></label>
+
+                <select class="activities" onchange="location = this.value;" name="activities">
+                    <option class="option">Train Activities</option>
+                    <option class="option1" value="/search-train/">Book Train</option>
+                    <option class="option2" value="/pnr-status/">PNR Status</option>
+                    <option class="option3" value="/pnr-status/">Cancel Ticket</option>
+                </select>
+                <i style="position:fixed; right:0%; margin:10px; font-size:40px;" class='bx bx-train bx-tada'></i>
+            </div>
+        </div>
+    </div>
+
+    <!--                        home search bar                             -->
+
+    <div class="outer-box"></div>
+    <div class="inner-box"></div>
+    <div class="inner-box1">
+
+
+        <div class="table-box">
+            <!-- hello Mr.trideep you can render all the details here in tabular form-->
+            <!-- Regards from Tisha -->
+            {% if matching_trains %}
+            <h2>Matching Trains:</h2>
+            <ul>
+                {% for train in matching_trains %}
+                <li>
+                    <strong>{{ train.train_name }} - {{ train.train_code }}</strong>
+                    <form id="booking-form" method="GET">
+                        <input type="hidden" name="from_station" value="{{ from_station_code }}">
+                        <input type="hidden" name="to_station" value="{{ to_station_code }}">
+                        <input type="hidden" name="date_of_journey" value="{{ date_of_journey|stringformat:'s' }}">
+                        <input type="hidden" name="train" value="{{ train.train_code }}">
+                        <ul>
+                            {% for seat_data in seat_availability_data %}
+                            {% if seat_data.train == train %}
+                            <li style="list-style-type: none">
+                                <label for="class_{{ seat_data.train_class.class_code }}">{{ seat_data.train_class.class_code }}</label>
+                                <br>
+                                Available Seats: {{ seat_data.available_seats }}
+                                {% for fare_item in fare_data %}
+                                {% if fare_item.train == train and fare_item.train_class == seat_data.train_class %}
+                                <input type="hidden" name="fare" value="{{fare_item.fare}}">
+                                <br /> Fare Amount: {{ fare_item.fare }}
+                                {% endif %}
+                                {% endfor %}
+                                {% if seat_data.train_class.class_code %}
+                                <button type="submit" class="book-button" formaction="{% url 'book_seat' train.train_code seat_data.train_class.class_code %}">Book Now</button>
+                                {% endif %}
+                                {% endif %}
+                                {% endfor %}
+                            </li>
+                        </ul>
+                    </form>
+                    {% endfor %}
+            </ul>
+            {% else %}
+            <p>No matching trains found.</p>
+            {% endif %}
+        </div>
+
+    </div>
+    </div>
+
+
+
+</body>
+
+</html>

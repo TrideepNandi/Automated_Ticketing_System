@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNR Status</title>
+    <link rel="stylesheet" href="{% static 'trains/css/pnr&cancel.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <!--                      navigation bar                             -->
+
+
+    <div class="header">
+        <div class="nav" class="topnav">
+            <div class="topnav">
+                <a class="active" href="/search-train/">Home</a>
+                <a class="active" href="/login/">Login / Register</a>
+                <label for=""></label>
+
+                <select class="activities" onchange="location = this.value;" name="activities">
+                    <option class="option">Train Activities</option>
+                    <option class="option1" value="/search-train/">Book Train</option>
+                    <option class="option2" value="/pnr-status/">PNR Status</option>
+                    <option class="option3" value="/pnr-status/">Cancel Ticket</option>
+                </select>
+                <i style="position:fixed; right:0%; margin:10px; font-size:40px;" class='bx bx-train bx-tada'></i>
+            </div>
+        </div>
+    </div>
+
+    <!--                      home search bar                             -->
+
+    <div class="outer-box"></div>
+    <div class="inner-box"></div>
+    <div class="inner-box1">
+
+        <div class="headline">
+            <h3>
+                <span></span>
+                <div class="message">
+                    <div class="word1" style="margin-bottom:15%;">Check your status</div>
+                    <div class="word2">Cancel your ticket</div>
+
+                </div>
+            </h3>
+        </div>
+
+        <form method="POST">
+            <div class="input-box ">
+                <label for="" class="from_station">Enter your PNR number: </label>
+                {{form.pnr}}
+
+            </div>
+
+            <div class="searching1">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    </div>
+
+</body>
+</html>
