@@ -49,6 +49,7 @@ class BookSeatView(View):
                 
                     passenger_name=request.POST.get('passenger_name'),
                     passenger_age_str = request.POST.get('passenger_age')
+                    print(type(passenger_name))
                     try:
                         passenger_age = int(passenger_age_str)
                     except ValueError:

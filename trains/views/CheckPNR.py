@@ -20,7 +20,8 @@ class CheckPNRStatusView(View):
         if form.is_valid():
             try:
                 ticket = TicketReservation.objects.get(PNR_no=pnr)
+                print(ticket.PNR_no)
             except TicketReservation.DoesNotExist:
                 ticket = None
             print(ticket)
-            return render(request, self.template_name, {'ticket': ticket, 'form': form})
+            return render(request, 'trains/pnr_status_result.html', {'ticket': ticket, 'form': form})

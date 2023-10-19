@@ -1,12 +1,12 @@
-{% load static %}
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Ticket</title>
-    <link rel="stylesheet" href="{% static 'trains/css/book_ticket.css '%}">
+    <title>search details</title>
+    <link rel="stylesheet" href="{% static 'trains/css/book_ticket.css' %}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
@@ -40,22 +40,34 @@
     <div class="outer-box"></div>
     <div class="inner-box"></div>
     <div class="inner-box1">
-        <h1>Book your Ticket</h1>
+
 
         <div class="table-box">
+            <!-- hello Mr.trideep you can render all the details here in tabular form-->
+            <!-- Regards from Tisha -->
+            {% if ticket %}
+            <h3>Ticket Details</h3>
             <table>
                 <tr>
                     <td>
-                        <label>Train Name </label>
-                        <input type="text" placeholder="{{train.train_name}}" disabled>
+                        <label>PNR Number </label>
+                        <input type="text" placeholder="{{ ticket.PNR_no }}" disabled>
                     </td>
                     <td></td>
                 </tr>
 
                 <tr>
                     <td>
-                        <label>Train Code </label>
-                        <input type="number" placeholder="{{train.train_code}}" disabled>
+                        <label>Train Name </label>
+                        <input type="number" placeholder="{{ ticket.train.train_name }}" disabled>
+                    </td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label>Class </label>
+                        <input type="text" placeholder="{{ ticket.train_class.class_name }}" disabled>
                     </td>
                     <td></td>
                 </tr>
@@ -63,7 +75,7 @@
                 <tr>
                     <td>
                         <label>From Station </label>
-                        <input type="text" placeholder="{{ from_station.station_name }}" disabled>
+                        <input type="text" placeholder="{{ ticket.from_station.station_name }}" disabled>
                     </td>
                     <td></td>
                 </tr>
@@ -71,23 +83,15 @@
                 <tr>
                     <td>
                         <label>To Station </label>
-                        <input type="text" placeholder="{{ to_station.station_name }}" disabled>
+                        <input type="text" placeholder="{{ ticket.to_station.station_name }}" disabled>
                     </td>
                     <td></td>
                 </tr>
 
                 <tr>
                     <td>
-                        <label>Date of Journey </label>
-                        <input type="text" placeholder="{{ date_of_journey }}" disabled>
-                    </td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <label>Selected Class </label>
-                        <input type="text" placeholder="{{ selected_class }}" disabled>
+                        <label>Total Fare:  </label>
+                        <input type="text" placeholder="{{ ticket.total_fare }}" disabled>
                     </td>
                     <td></td>
                 </tr>
@@ -96,33 +100,29 @@
 
         </div>
         <div>
-            <form method="POST">
-                {%csrf_token%}
-                <label class="lab">Fill your details ...</label>
-
+            <form>
                 <label>Passenger Name </label>
-                {{form.passenger_name}}
+                <input type="text" placeholder="{{ ticket.passenger_name }}" disabled>
+
 
                 <label>Passenger Age </label>
-                {{form.passenger_age}}
+                <input type="text" placeholder="{{ ticket.passenger_age }}" disabled>
 
                 <label>Passenger Sex </label>
-                {{form.passenger_sex}}
-                <!--select name="sex" id="">
-                    <option class="op" value="male">---</option>
-                    <option class="op" value="male">Male</option>
-                    <option class="op" value="female">Female</option>
-                </!--select--->
-
-                <button type="submit">Book</button>
-
+                <input type="text" placeholder="{{ ticket.passenger_sex }}" disabled>
+                
+                <label>Passenger Status </label>
+                <input type="text" placeholder="{{ ticket.ticket_status}}" disabled>
+                {% if ticket.ticket_status != 'Cancelled'%}
+                <button type="submit" formaction="{% url 'cancel_ticket' ticket.PNR_no %}">Cancel Ticket</button>
+                {% endif %}
             </form>
+
         </div>
     </div>
-    </div>
-
-
-
+    {% else %}
+        <h1>Enter Correct PNR no.</h1>
+    {% endif %}
 </body>
 
 </html>

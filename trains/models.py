@@ -109,7 +109,7 @@ class TicketReservation(models.Model):
     total_fare = models.IntegerField()
     passenger_name = models.CharField(max_length=30)
     passenger_age = models.IntegerField()
-    passenger_sex = models.CharField(max_length=20, choices=CHOICES)
-    ticket_status = models.CharField(max_length=5)
+    passenger_sex = models.CharField(max_length=20)
+    ticket_status = models.CharField(max_length=10)
     ticket_seat_no = models.IntegerField(null=True, blank=True)
 

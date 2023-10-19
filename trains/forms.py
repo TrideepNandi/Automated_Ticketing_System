@@ -12,13 +12,13 @@ class TrainSearchForm(forms.Form):
     date_of_journey = forms.DateField(widget=forms.DateInput(attrs={'type': 'date', 'class' : 'date-input'}))
     
 class BookSeatForm(forms.Form):
-    passenger_name = forms.CharField(label='Passenger Name', max_length=30)
+    passenger_name = forms.CharField(label='Passenger Name', max_length=30, widget=forms.TextInput)
     passenger_age = forms.IntegerField(label='Passenger Age')
     passenger_sex = forms.ChoiceField(label='Passenger Sex', choices=(
-        ('M', 'Male'),
-        ('F', 'Female'),
-        ('O', 'Other'),
-        ('P', 'Prefer Not to Say'),
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+        ('Other', 'Other'),
+        ('Prefer Not to Say', 'Prefer Not to Say'),
     ))
     """class Meta:
         model = TicketReservation

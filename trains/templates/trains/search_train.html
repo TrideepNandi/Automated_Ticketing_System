@@ -20,8 +20,12 @@
         <div class="nav" class="topnav">
             <div class="topnav">
                 <a class="active" href="/search-train/">Home</a>
-                <a class="active" href="/login/">Login / Register</a>
+                {% if user.is_authenticated %}
+                <a class="active" href="/logout/"> {{user.username}} | Logout</a>
                 <label for=""></label>
+                {% else %}
+                <a class="active" href="/login/">Login | Register</a>
+                {% endif %}
 
                 <select class="activities" onchange="location = this.value;" name="activities">
                     <option class="option">Train Activities</option>
@@ -66,19 +70,22 @@
             {% csrf_token %}
             <div class="input-box ">
                 <label for="" class="from_station">From  </label>
-                {{form.from_station}}
+                <!---Edit Here-->
+                <div>{{form.from_station}}</div>
                 <i style="margin-left:76%; font-size:large;" class='bx bx-chevrons-right bx-fade-right'></i>
             </div>
 
             <div class="input-box ">
                 <label class="date" for="">Date</label>
-                {{form.date_of_journey}}
+                <!---Edit Here-->
+                <div>{{form.date_of_journey}}</div>
 
             </div>
 
             <div class="input-box ">
                 <label class="to" for="">To </label>
-                {{form.to_station}}
+                <!---Edit Here--->
+                <div>{{form.to_station}}</div>
 
             </div>
 

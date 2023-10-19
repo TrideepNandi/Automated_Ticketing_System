@@ -86,6 +86,7 @@
     <Content Include="trains\templates\registration\login.html" />
     <Content Include="trains\templates\trains\book_seat.html" />
     <Content Include="trains\templates\trains\pnr_status.html" />
+    <Content Include="trains\templates\trains\pnr_status_result.html" />
     <Content Include="trains\templates\trains\search_train.html" />
     <Content Include="trains\templates\trains\success_booking.html" />
     <Content Include="trains\templates\trains\search_train_result.html" />

@@ -7,19 +7,13 @@ from django.views import View
 from django.contrib.auth import login,logout,authenticate
 
 class RegisterView(View):
-  
-    def get (self, request):
-        r_form = RegistrationForm()
-        return render(request, 'registration\login.html', {"r_form": r_form})
-    
     def post (self, request):
-        r_form = RegistrationForm(request.POST)    
-        if r_form.is_valid():
-            user = r_form.save()
-            username = r_form.cleaned_data.get('username')
+            username = request.POST.get('username') 
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+            user = User(username = username, email = email, password = password)
+            user.save()
             login(request, user)
             messages.success(request, f'Account created and logged in for {username}')
-            return redirect('/search_train')
-        
-        else:
-            return render (request, 'registration\login.html', {"r_form": r_form})
+            return redirect('/search-train')
+

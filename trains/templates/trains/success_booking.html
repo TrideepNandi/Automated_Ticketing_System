@@ -1,3 +1,4 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>search details</title>
-    <link rel="stylesheet" href="{% static 'trains/css/page.css' %}">
+    <link rel="stylesheet" href="{% static 'trains/css/book_ticket.css' %}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
@@ -17,8 +18,12 @@
         <div class="nav" class="topnav">
             <div class="topnav">
                 <a class="active" href="/search-train/">Home</a>
-                <a class="active" href="/login/">Login / Register</a>
+                {% if user.is_authenticated %}
+                <a class="active" href="/logout/"> {{user.username}} | Logout</a>
                 <label for=""></label>
+                {% else %}
+                <a class="active" href="/login/">Login | Register</a>
+                {% endif %}
 
                 <select class="activities" onchange="location = this.value;" name="activities">
                     <option class="option">Train Activities</option>
@@ -41,9 +46,74 @@
         <div class="table-box">
             <!-- hello Mr.trideep you can render all the details here in tabular form-->
             <!-- Regards from Tisha -->
-        </div>
+            <h3>You have successfully booked your ticket</h3>
+            <table>
+                <tr>
+                    <td>
+                        <label>PNR Number </label>
+                        <input type="text" placeholder="{{ ticket.PNR_no }}" disabled>
+                    </td>
+                    <td></td>
+                </tr>
 
-    </div>
+                <tr>
+                    <td>
+                        <label>Train Name </label>
+                        <input type="number" placeholder="{{ ticket.train.train_name }}" disabled>
+                    </td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label>Class </label>
+                        <input type="text" placeholder="{{ ticket.train_class.class_name }}" disabled>
+                    </td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label>From Station </label>
+                        <input type="text" placeholder="{{ ticket.from_station.station_name }}" disabled>
+                    </td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label>To Station </label>
+                        <input type="text" placeholder="{{ ticket.to_station.station_name }}" disabled>
+                    </td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label>Total Fare:  </label>
+                        <input type="text" placeholder="{{ ticket.total_fare }}" disabled>
+                    </td>
+                    <td></td>
+                </tr>
+
+            </table>
+
+        </div>
+        <div>
+            <form>
+                <label>Passenger Name </label>
+                <input type="text" placeholder="{{ ticket.passenger_name }}" disabled>
+                
+
+                <label>Passenger Age </label>
+                <input type="text" placeholder="{{ ticket.passenger_age }}" disabled>
+
+                <label>Passenger Sex </label>
+                <input type="text" placeholder="{{ ticket.passenger_sex }}" disabled>
+
+            </form>
+
+        </div>
     </div>
 
 
